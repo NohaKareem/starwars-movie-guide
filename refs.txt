@@ -1,1 +1,0 @@
-createElement and createTextNode https://stackoverflow.com/a/20673977/1446598
