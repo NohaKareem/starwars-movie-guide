@@ -10,7 +10,7 @@
 	function loadChars() {
 		axiosCall(FILM_URL + "7", function(response){	
 			let charUrls = response.data.characters;
-			
+
 			// get character ids
 			getIdsFromURL(charUrls, charIds);
 
@@ -22,9 +22,13 @@
 	}
 
 	// display all characters on page
-	function addCharsToList(response) {
+	function addCharsToList(response, charId) {
 		let listElement = document.createElement("li");
-		listElement.innerHTML = `<a href="#" class="charLink">${response.data.name}</a>`;
+		listElement.innerHTML = `
+			<a href="#" class="charLink">
+				<img src="assets/images/chars/${charId}.jpg" class="thumbnail" alt="${response.data.name} image "> 
+				<p class="charName">${response.data.name}</p>
+			</a>`;
 		resultsList.appendChild(listElement);	
 
 		// add listener to click event to load films for character,
@@ -71,8 +75,9 @@
 	function axiosCall(url, responseMethod) {
 		axios.get(url)
 		.then(function(response) {
-			// console.log(response)
-			responseMethod(response);
+			var charId = [];
+			getIdsFromURL([url], charId, true);
+			responseMethod(response, charId[0]);
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -80,11 +85,14 @@
 	}
 
 	// gets ids from a list of urls and stores them the detination array, dstArr
-	function getIdsFromURL(urls, dstArr) {
+	// lastIndex parameter determines whether to pick last element (as opposed to second to last element) in url 
+	function getIdsFromURL(urls, dstArr, lastIndex) {
 		urls.forEach((url) => {
 			let urlComponents = url.split('/');
+
 			// id is second to last split element (example url https://swapi.co/api/people/1/)
-			dstArr.push(urlComponents[urlComponents.length - 2]);
+			let index = lastIndex ? urlComponents.length - 1 : urlComponents.length - 2;
+			dstArr.push(urlComponents[index]);
 		});
 	}
 

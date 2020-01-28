@@ -1,6 +1,10 @@
 @charset "UTF-8";
 /* CSS Document */
 
+$baseMargin: 10px;
+$desktopWidth: 768px;
+$mblThumbnail: 80px;
+
 .hidden {
 	display: none;
 }
@@ -15,10 +19,30 @@ body {
 	width: 200px;
 }
 
+// data 
+a {
+    color: white;
+}
+
+.charName {
+    margin-top: $baseMargin * -2;
+    // width: $mblThumbnail;
+    text-align: center;
+}
+
+#resultsList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-row-gap: $baseMargin * 4;
+    margin: $baseMargin * 3;
+    text-align: center;
+}
+
 // images
 img.thumbnail {
-    width: 80px; 
-    height: 80px;
+    box-shadow: 0px 0px 20px 5px white;
+    width: $mblThumbnail; 
+    height: $mblThumbnail;
     border-radius: 100%;
     object-fit: cover;
 }
@@ -27,4 +51,11 @@ img.poster {
     max-height: 400px;
     border-radius: 10px;
     position: relative;
+}
+
+@media screen and (min-width: $desktopWidth) {
+    img.thumbnail {
+        width: 200px;
+        height: 200px;
+    }
 }

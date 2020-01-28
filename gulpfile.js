@@ -9,14 +9,14 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./css/'));
 });
 
-// compile ES6
+// compile 
 gulp.task('es6', function() {
     return gulp.src('js/**/*.js')
         .pipe(babel({ presets: ['@babel/env'] }))
         .pipe(gulp.dest('./build/'));
 })
 
-// watch for sass/~ES6 updates
+// watch for sass/ES6 updates
 gulp.task('default', function() {
     gulp.watch('css/**/*.scss', gulp.series('sass'));
     gulp.watch('js/**/*.js', gulp.series('es6'));
