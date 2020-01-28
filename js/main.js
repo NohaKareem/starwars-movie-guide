@@ -1,15 +1,77 @@
 (function() {
 	"use strict";
-	const resultsList = document.querySelector("#resultsList");
-	const filmURL = 'https://swapi.co/api/films/';
-	const peopleURL = 'https://swapi.co/api/people/';
-	
+	let resultsList = document.querySelector("#resultsList");
 	let charIds = [];
+	const FILM_URL = 'https://swapi.co/api/films/'; 
+	const PEOPLE_URL = 'https://swapi.co/api/people/';
 
-	// Helper method. Generates axios call using url and handles response using responseMethod
+	// get character ids to be used in app (from The Force Awakens film, with id 7)
+	// and then load each character's data
+	function loadChars() {
+		axiosCall(FILM_URL + "7", function(response){	
+			let charUrls = response.data.characters;
+			
+			// get character ids
+			getIdsFromURL(charUrls, charIds);
+
+			// load characters
+			for(let i = 0; i < charIds.length; i++){
+				axiosCall(PEOPLE_URL + charIds[i], addCharsToList); 
+			}
+		}); 
+	}
+
+	// display all characters on page
+	function addCharsToList(response) {
+		let listElement = document.createElement("li");
+		listElement.innerHTML = `<a href="#" class="charLink">${response.data.name}</a>`;
+		resultsList.appendChild(listElement);	
+
+		// add listener to click event to load films for character,
+		// provided films list has not been populated before
+		listElement.addEventListener("click", _ => {
+			if(listElement.children.length <= 1)
+				addFilmsToChar(listElement, response); 
+		});
+	}
+
+	// displays all films for a single character
+	function addFilmsToChar(parentList, response) {
+		let films = response.data.films;
+		let subList = document.createElement("ul");
+		let filmId = [];
+		
+		films.forEach((film) => {
+			// get film ids (method takes an array of urls as first argument)
+			getIdsFromURL([film], filmId);
+			let listElement = document.createElement("li"); //~movie poster alt
+
+			// movie poster is found by id, which is the last pushed item to the filmId array
+			listElement.innerHTML = `
+				<a href="#" class="charLink">
+					<img src="assets/images/films/${filmId[filmId.length - 1]}.jpg" class="thumbnail" alt="Movie poster"> 
+					<p>${film}</p>	
+				</a>`;
+			subList.appendChild(listElement);
+
+			// add listener to click event to load film data
+			listElement.addEventListener("click", _ => {
+				axiosCall(FILM_URL + filmId[0], _ => {
+					console.log('~retrieved film');
+				})
+			});	
+		});
+		console.log(filmId)
+		parentList.appendChild(subList);
+	}
+
+	
+	/* helper methods */ 
+	// generates axios call using url and handles response using responseMethod
 	function axiosCall(url, responseMethod) {
 		axios.get(url)
-		.then(function(response){
+		.then(function(response) {
+			// console.log(response)
 			responseMethod(response);
 		})
 		.catch(function(error) {
@@ -17,34 +79,14 @@
 		});
 	}
 
-	// loads charachter ids to be used in app (charachters from The Force Awakens film, with id 7)
-	function loadCharIds() {
-			console.log('in load chars');
-			axiosCall(filmURL + "7", function(response){	
-				let charUrls = response.data.characters;
-				console.log(charUrls)		
-			for(let i = 0; i < charUrls.length; i++) {
-				let urlComponents = charUrls[i].split('/');
-				
-				// charachter API id is second to last split character (example url https://swapi.co/api/people/1/)
-				charIds[i] = urlComponents[urlComponents.length - 2];
-			}
-		}); 
+	// gets ids from a list of urls and stores them the detination array, dstArr
+	function getIdsFromURL(urls, dstArr) {
+		urls.forEach((url) => {
+			let urlComponents = url.split('/');
+			// id is second to last split element (example url https://swapi.co/api/people/1/)
+			dstArr.push(urlComponents[urlComponents.length - 2]);
+		});
 	}
 
-	// load charachters method (to be passed to axiosCall~)
-	function loadChars(response) {
-		for(let i = 0; i < response.data.results.length; i++){
-			let listElement = document.createElement("li");
-			listElement.appendChild(document.createTextNode(response.data.results[i].name));
-			resultsList.appendChild(listElement);	
-	}
-		// console.table(response);
-	}
-
-	loadCharIds();
-	axiosCall(peopleURL, loadChars); // load charachters
-
-	// loadChars();
-
+	loadChars();
 })();
