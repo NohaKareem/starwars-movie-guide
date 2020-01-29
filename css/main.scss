@@ -219,6 +219,7 @@ img.poster {
     height: 100vh;
     object-fit: cover;
     border-radius: 10px;
+    margin-top: $baseMargin * 3;
 }
 
 @media screen and (min-width: $desktopWidth) {
