@@ -4,7 +4,7 @@
   display: none; }
 
 body {
-  font-family: 'Hammersmith One', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   background-color: #000;
   color: white;
   font-size: 22.5px; }
@@ -23,26 +23,30 @@ header {
 
 h2, h3 {
   font-size: 36px;
-  color: #ffe919; }
+  color: #ffe919;
+  font-family: 'Audiowide', sans-serif; }
+
+h3.title {
+  margin-bottom: 30px; }
+
+p.crawl {
+  margin: 30px 20px; }
 
 #charList h2 {
   text-align: center;
   margin: 30px; }
 
-#container.gridCon {
+#container {
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
-  grid-column-gap: 40px;
+  grid-template-columns: 1fr 1fr;
   text-align: center; }
 
 #logo {
   width: 200px; }
 
 .dataCon {
-  color: white; }
-
-.poster {
-  height: 100%; }
+  color: white;
+  padding-left: 20px; }
 
 a {
   color: white;
@@ -98,8 +102,8 @@ img.thumbnail {
   height: 80px; }
 
 img.poster {
-  max-width: 100%;
-  max-height: 100%;
+  height: 100vh;
+  max-width: 50vw;
   object-fit: cover;
   border-radius: 10px; }
 
