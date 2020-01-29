@@ -153,7 +153,7 @@ img.poster {
   object-fit: cover;
   border-radius: 10px; }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 850px) {
   img.thumbnail {
     width: 200px;
     height: 200px; }
