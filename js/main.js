@@ -7,6 +7,7 @@
 	let charProfilePicCon = document.querySelector(".charProfilePicCon");
 	let charName = document.querySelector(".charName");
 	let contextMenu = document.querySelector(".contextMenu");
+	let contextMenuTitle = document.querySelector(".contextMenuTitle");
 	let burgerIcon = document.querySelector(".burgerIcon");
 	let container = document.querySelector("#container");
 	let charListCon = document.querySelector("#charList");//container~
@@ -70,6 +71,7 @@
 		charName.innerHTML = `${response.data.name}`;
 
 		// show all films for character
+		contextMenuTitle.innerHTML = `${response.data.name}'s movies`;
 		displayContextMenu(response, true);		
 	}
 

@@ -10,6 +10,7 @@
   var charProfilePicCon = document.querySelector(".charProfilePicCon");
   var charName = document.querySelector(".charName");
   var contextMenu = document.querySelector(".contextMenu");
+  var contextMenuTitle = document.querySelector(".contextMenuTitle");
   var burgerIcon = document.querySelector(".burgerIcon");
   var container = document.querySelector("#container");
   var charListCon = document.querySelector("#charList"); //container~
@@ -63,6 +64,7 @@
     crawlCon.innerHTML = "";
     charName.innerHTML = "".concat(response.data.name); // show all films for character
 
+    contextMenuTitle.innerHTML = "".concat(response.data.name, "'s movies");
     displayContextMenu(response, true);
   } // displays movie profile with movie data and all characters for a single movie
 

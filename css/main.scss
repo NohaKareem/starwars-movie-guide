@@ -43,10 +43,17 @@ h2, h3 {
     font-family: 'Audiowide', sans-serif;
 }
 
+.contextMenuTitle {
+    color: $logoYellow;
+    font-family: 'Audiowide', sans-serif;
+    margin-top: $baseMargin * 2;
+}
+
 .menuTitle {
     color: $logoYellow;
     font-family: 'Audiowide', sans-serif;
     font-size: $baseFontSize * 1.25;
+    margin-top: $baseMargin * 3;
 }
 
 
@@ -69,7 +76,7 @@ p.crawl {
    display: flex;
    flex-direction: column;
    flex-wrap: wrap;
-
+   margin: 0 auto;
 }
 
 // header
@@ -96,6 +103,8 @@ p.crawl {
 .dataCon {
     color: white;
     padding-left: $baseMargin * 2;
+    // display: grid; //~
+    margin: 0 auto;
 
     .charName {
         margin: $baseMargin * 2;
@@ -174,12 +183,14 @@ img.thumbnail:hover {
 .contextMenu {
     .grid {
         // display: grid;
+
         // grid-template-columns: repeat(3, minmax(0, 1fr));
         // grid-row-gap: 5px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: start; 
+        justify-content: center; 
+        margin-top: $baseMargin * 3;
     }
     img.thumbnail {
         box-shadow: none;
@@ -190,6 +201,10 @@ img.thumbnail:hover {
     img.thumbnail:hover {
         box-shadow: 0px 0px 20px 5px white;
     }
+}
+
+.posterCon {
+    order: 0;
 }
 
 img.poster {
@@ -210,8 +225,8 @@ img.poster {
     }
 
     #container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        // display: grid;
+        // grid-template-columns: 1fr 1fr;
         text-align: center; 
     }
     
