@@ -51,9 +51,10 @@ img.thumbnail {
   height: 80px; }
 
 img.poster {
+  max-width: 400px;
   max-height: 400px;
-  border-radius: 10px;
-  position: relative; }
+  object-fit: cover;
+  border-radius: 10px; }
 
 @media screen and (min-width: 768px) {
   img.thumbnail {

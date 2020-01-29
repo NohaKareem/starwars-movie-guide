@@ -33,13 +33,15 @@
     // provided films list has not been populated before
 
     listElement.addEventListener("click", function (_) {
-      if (listElement.children.length <= 1) displayCharProfile(listElement, response);
+      if (listElement.children.length <= 1) displayCharProfile(response, charId);
     });
   } // displays character profile with character data and all films for a single character
 
 
-  function displayCharProfile(parentList, response) {
+  function displayCharProfile(response, charId) {
     // display character profile
+    updatePoster("chars/".concat(charId), "".concat(response.data.name, " image"));
+    crawlCon.innerHTML = "";
     titleCon.innerHTML = "".concat(response.data.name); // display films
 
     var films = response.data.films;
@@ -53,18 +55,27 @@
       // movie poster is found by id, which is the last pushed item to the filmId array
       // posterCon.innerHTML += `
 
-      listElement.innerHTML = "\n\t\t\t\t<a href=\"#\" class=\"charLink\">\n\t\t\t\t\t<img src=\"assets/images/films/".concat(filmId[filmId.length - 1], ".jpg\" class=\"thumbnail\" alt=\"Movie poster\"> \n\t\t\t\t</a>");
-      subList.appendChild(listElement); // add listener to click event to load film data
+      var currFilmId = filmId.length - 1;
+      listElement.innerHTML = "\n\t\t\t\t<a href=\"#\" class=\"charLink\">\n\t\t\t\t\t<img src=\"assets/images/films/".concat(filmId[currFilmId], ".jpg\" class=\"thumbnail\" alt=\"Movie poster\"> \n\t\t\t\t</a>");
+      subList.appendChild(listElement); // add listener to click event to load film data //~
 
       listElement.addEventListener("click", function (_) {
-        axiosCall(FILM_URL + filmId[0], function (_) {
-          console.log('~retrieved film');
-        });
+        axiosCall(FILM_URL + filmId[currFilmId], displayMovieProfile);
       });
     });
     console.log(filmId); // parentList.appendChild(subList);
 
+    contextMenu.innerHTML = ""; // reset menu
+
     contextMenu.appendChild(subList);
+  } // displays movie profile with movie data and all characters for a single movie
+
+
+  function displayMovieProfile(response, filmId) {
+    console.log(response);
+    titleCon.innerHTML = "".concat(response.data.title);
+    updatePoster("films/".concat(filmId), "".concat(response.data.title, " poster"));
+    crawlCon.innerHTML = "".concat(response.data.opening_crawl);
   }
   /* helper methods */
   // generates axios call using url and handles response using responseMethod
@@ -72,12 +83,17 @@
 
   function axiosCall(url, responseMethod) {
     axios.get(url).then(function (response) {
-      var charId = [];
-      getIdsFromURL([url], charId, true);
-      responseMethod(response, charId[0]);
+      var id = [];
+      getIdsFromURL([url], id, true);
+      responseMethod(response, id[0]);
     })["catch"](function (error) {
       console.log(error);
     });
+  } // updates posterCon with new image given image source, imgSrc and img alt, imgAlt
+
+
+  function updatePoster(imgSrc, imgAlt) {
+    posterCon.innerHTML = "<img src=\"assets/images/".concat(imgSrc, ".jpg\" alt=\"").concat(imgAlt, "\" class=\"poster\">");
   } // gets ids from a list of urls and stores them the detination array, dstArr
   // lastIndex parameter determines whether to pick last element (as opposed to second to last element) in url 
 

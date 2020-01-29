@@ -39,13 +39,15 @@
 		// provided films list has not been populated before
 		listElement.addEventListener("click", _ => {
 			if(listElement.children.length <= 1)
-				displayCharProfile(listElement, response); 
+				displayCharProfile(response, charId); 
 		});
 	}
 
 	// displays character profile with character data and all films for a single character
-	function displayCharProfile(parentList, response) {
+	function displayCharProfile(response, charId) {
 		// display character profile
+		updatePoster(`chars/${charId}`, `${response.data.name} image`);
+		crawlCon.innerHTML = "";
 		titleCon.innerHTML = `${response.data.name}`;
 
 		// display films
@@ -61,23 +63,30 @@
 
 			// movie poster is found by id, which is the last pushed item to the filmId array
 			// posterCon.innerHTML += `
+			var currFilmId = filmId.length - 1;
 			listElement.innerHTML = `
 				<a href="#" class="charLink">
-					<img src="assets/images/films/${filmId[filmId.length - 1]}.jpg" class="thumbnail" alt="Movie poster"> 
+					<img src="assets/images/films/${filmId[currFilmId]}.jpg" class="thumbnail" alt="Movie poster"> 
 				</a>`;
 			subList.appendChild(listElement);
 
-			// add listener to click event to load film data
+			// add listener to click event to load film data //~
 			listElement.addEventListener("click", _ => {
-				axiosCall(FILM_URL + filmId[0], _ => {
-					console.log('~retrieved film');
-				})
+				axiosCall(FILM_URL + filmId[currFilmId], displayMovieProfile);
 			});	
 		});
 		console.log(filmId)
 		// parentList.appendChild(subList);
+		contextMenu.innerHTML = ""; // reset menu
 		contextMenu.appendChild(subList);
+	}
 
+	// displays movie profile with movie data and all characters for a single movie
+	function displayMovieProfile(response, filmId) {
+		console.log(response);
+		titleCon.innerHTML = `${response.data.title}`;
+		updatePoster(`films/${filmId}`, `${response.data.title} poster`);
+		crawlCon.innerHTML = `${response.data.opening_crawl}`;
 	}
 
 	
@@ -86,13 +95,18 @@
 	function axiosCall(url, responseMethod) {
 		axios.get(url)
 		.then(function(response) {
-			var charId = [];
-			getIdsFromURL([url], charId, true);
-			responseMethod(response, charId[0]);
+			var id = [];
+			getIdsFromURL([url], id, true);
+			responseMethod(response, id[0]);
 		})
 		.catch(function(error) {
 			console.log(error);
 		});
+	}
+
+	// updates posterCon with new image given image source, imgSrc and img alt, imgAlt
+	function updatePoster(imgSrc, imgAlt) {
+		posterCon.innerHTML = `<img src="assets/images/${imgSrc}.jpg" alt="${imgAlt}" class="poster">`
 	}
 
 	// gets ids from a list of urls and stores them the detination array, dstArr

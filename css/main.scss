@@ -91,9 +91,11 @@ img.thumbnail {
 }
 
 img.poster {
+    max-width: 400px;
     max-height: 400px;
+    object-fit: cover;
     border-radius: 10px;
-    position: relative;
+    // position: relative;
 }
 
 @media screen and (min-width: $desktopWidth) {
