@@ -16,6 +16,7 @@
   var charListCon = document.querySelector("#charList"); //container~
 
   var charIds = [];
+  var movieTitles = [];
   var FILM_URL = 'https://swapi.co/api/films/';
   var PEOPLE_URL = 'https://swapi.co/api/people/'; // get character ids to be used in app (from The Force Awakens film, with id 7)
   // and then load each character's data
@@ -72,13 +73,28 @@
     titleCon.innerHTML = "".concat(response.data.title);
     updatePoster("films/".concat(filmId), "".concat(response.data.title, " poster"), true);
     crawlCon.innerHTML = "".concat(response.data.opening_crawl);
+  } // displays movie titles
+
+
+  function populateMovieTitles(response) {
+    console.log(response.data.title);
+    movieTitles.push(response.data.title);
+    console.log(movieTitles);
   } // toggle burger menu
 
 
   function toggleBurgerMenu(e) {
     charListCon.classList.toggle("hidden");
     container.classList.toggle("threeGrid");
-    burgerIcon.classList.toggle("burgerIconTransform"); //~
+    burgerIcon.classList.toggle("burgerIconTransform");
+    /**greensock animation */
+
+    TweenLite.fromTo(charListCon, 1, {
+      opacity: 0
+    }, {
+      opacity: 1,
+      ease: "power3.out"
+    });
   }
   /* helper methods */
   // generates axios call using url and handles response using responseMethod
@@ -125,7 +141,11 @@
       var listElement = document.createElement("li"); //~movie poster alt
       // image is found by id, which is the last pushed item to the ItemId array
 
-      var currItemId = ItemId.length - 1;
+      var currItemId = ItemId.length - 1; // display context menu, with movie titles (if showing character profile)
+      // if (isFilm) {
+      // 	axiosCall(FILM_URL + ItemId[currItemId], populateMovieTitles);
+      // }
+
       listElement.innerHTML = "\n\t\t\t\t<a href=\"#\" class=\"charLink\">\n\t\t\t\t\t<img src=\"assets/images/".concat(isFilm ? "films" : "chars", "/").concat(ItemId[currItemId], ".jpg\" class=\"thumbnail\" alt=\"").concat(isFilm ? "poster" : "image", "\"> \n\t\t\t\t</a>");
       subList.appendChild(listElement); // add listener to click event to load data
 

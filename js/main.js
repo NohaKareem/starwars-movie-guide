@@ -13,6 +13,7 @@
 	let charListCon = document.querySelector("#charList");//container~
 
 	let charIds = [];
+	var movieTitles = [];
 	const FILM_URL = 'https://swapi.co/api/films/'; 
 	const PEOPLE_URL = 'https://swapi.co/api/people/';
 
@@ -83,11 +84,21 @@
 		crawlCon.innerHTML = `${response.data.opening_crawl}`;
 	}
 
+	// displays movie titles
+	function populateMovieTitles(response) {
+		console.log(response.data.title)
+		movieTitles.push(response.data.title);
+		console.log(movieTitles)
+	}
+
 	// toggle burger menu
 	function toggleBurgerMenu(e) {
 		charListCon.classList.toggle("hidden");
 		container.classList.toggle("threeGrid");
-		burgerIcon.classList.toggle("burgerIconTransform");//~
+		burgerIcon.classList.toggle("burgerIconTransform");
+
+		/**greensock animation */
+		TweenLite.fromTo(charListCon, 1, {opacity: 0}, {opacity: 1, ease: "power3.out"});
 	}
 
 	
@@ -141,11 +152,19 @@
 
 			// image is found by id, which is the last pushed item to the ItemId array
 			var currItemId = ItemId.length - 1; 
+
+			// display context menu, with movie titles (if showing character profile)
+			// if (isFilm) {
+			// 	axiosCall(FILM_URL + ItemId[currItemId], populateMovieTitles);
+			// }
+
 			listElement.innerHTML = `
 				<a href="#" class="charLink">
 					<img src="assets/images/${isFilm ? "films" : "chars"}/${ItemId[currItemId]}.jpg" class="thumbnail" alt="${isFilm ? "poster" : "image"}"> 
 				</a>`; 
 			subList.appendChild(listElement);
+
+		
 
 			// add listener to click event to load data
 			listElement.addEventListener("click", _ => {
