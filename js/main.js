@@ -1,6 +1,10 @@
 (function() {
 	"use strict";
 	let resultsList = document.querySelector("#resultsList");
+	let titleCon = document.querySelector("h2.title");
+	let crawlCon = document.querySelector("p.crawl");
+	let posterCon = document.querySelector(".posterCon");
+	let contextMenu = document.querySelector(".contextMenu");
 	let charIds = [];
 	const FILM_URL = 'https://swapi.co/api/films/'; 
 	const PEOPLE_URL = 'https://swapi.co/api/people/';
@@ -16,13 +20,13 @@
 
 			// load characters
 			for(let i = 0; i < charIds.length; i++){
-				axiosCall(PEOPLE_URL + charIds[i], addCharsToList); 
+				axiosCall(PEOPLE_URL + charIds[i], displayCharMenu); 
 			}
 		}); 
 	}
 
 	// display all characters on page
-	function addCharsToList(response, charId) {
+	function displayCharMenu(response, charId) {
 		let listElement = document.createElement("li");
 		listElement.innerHTML = `
 			<a href="#" class="charLink">
@@ -35,26 +39,31 @@
 		// provided films list has not been populated before
 		listElement.addEventListener("click", _ => {
 			if(listElement.children.length <= 1)
-				addFilmsToChar(listElement, response); 
+				displayCharProfile(listElement, response); 
 		});
 	}
 
-	// displays all films for a single character
-	function addFilmsToChar(parentList, response) {
+	// displays character profile with character data and all films for a single character
+	function displayCharProfile(parentList, response) {
+		// display character profile
+		titleCon.innerHTML = `${response.data.name}`;
+
+		// display films
 		let films = response.data.films;
 		let subList = document.createElement("ul");
 		let filmId = [];
 		
+		// posterCon.innerHTML = '';//~
 		films.forEach((film) => {
 			// get film ids (method takes an array of urls as first argument)
 			getIdsFromURL([film], filmId);
 			let listElement = document.createElement("li"); //~movie poster alt
 
 			// movie poster is found by id, which is the last pushed item to the filmId array
+			// posterCon.innerHTML += `
 			listElement.innerHTML = `
 				<a href="#" class="charLink">
 					<img src="assets/images/films/${filmId[filmId.length - 1]}.jpg" class="thumbnail" alt="Movie poster"> 
-					<p>${film}</p>	
 				</a>`;
 			subList.appendChild(listElement);
 
@@ -66,7 +75,9 @@
 			});	
 		});
 		console.log(filmId)
-		parentList.appendChild(subList);
+		// parentList.appendChild(subList);
+		contextMenu.appendChild(subList);
+
 	}
 
 	

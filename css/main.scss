@@ -2,16 +2,35 @@
 /* CSS Document */
 
 $baseMargin: 10px;
+$baseFontSize: 18px;
 $desktopWidth: 768px;
 $mblThumbnail: 80px;
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 body {
 	font-family: 'Source Sans Pro', sans-serif;
-	background-color: #000;
+    background-color: #000;
+    color: white;
+    font-size: $baseFontSize;
+}
+
+h2 {
+    font-size: $baseFontSize * 2;
+}
+
+#container { 
+    // display: flex;
+    // flex-direction: row;
+    // justify-self: center;
+    // align-items: center;
+    // flex-wrap: wrap;
+    // flex-basis: 30%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 30%));
+    grid-column-gap: $baseMargin * 4;
 }
 
 // header
@@ -19,23 +38,39 @@ body {
 	width: 200px;
 }
 
-// data 
-a {
+// movie/character data 
+.data {
     color: white;
 }
 
+.poster {
+    height: 100%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
 .charName {
-    margin-top: $baseMargin * -2;
+    margin-top: $baseMargin * -3;
+    // text-shadow: 0px 0px 20px 5px black;
     // width: $mblThumbnail;
     text-align: center;
 }
 
-#resultsList {
+#resultsList { //~
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-row-gap: $baseMargin * 4;
-    margin: $baseMargin * 3;
-    text-align: center;
+    // display: flex;
+    // flex-direction: row;
+    // justify-self: center;
+    // align-items: center;
+    // flex-wrap: wrap;
+    // flex-basis: 30%;
+    // margin: $baseMargin * 3;
+    // text-align: center;
 }
 
 // images
@@ -45,6 +80,14 @@ img.thumbnail {
     height: $mblThumbnail;
     border-radius: 100%;
     object-fit: cover;
+}
+
+.contextMenu {
+    img.thumbnail {
+        box-shadow: none;
+        width: $mblThumbnail; 
+        height: $mblThumbnail;
+    }
 }
 
 img.poster {

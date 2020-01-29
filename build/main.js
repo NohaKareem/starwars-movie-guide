@@ -4,6 +4,10 @@
   "use strict";
 
   var resultsList = document.querySelector("#resultsList");
+  var titleCon = document.querySelector("h2.title");
+  var crawlCon = document.querySelector("p.crawl");
+  var posterCon = document.querySelector(".posterCon");
+  var contextMenu = document.querySelector(".contextMenu");
   var charIds = [];
   var FILM_URL = 'https://swapi.co/api/films/';
   var PEOPLE_URL = 'https://swapi.co/api/people/'; // get character ids to be used in app (from The Force Awakens film, with id 7)
@@ -16,35 +20,40 @@
       getIdsFromURL(charUrls, charIds); // load characters
 
       for (var i = 0; i < charIds.length; i++) {
-        axiosCall(PEOPLE_URL + charIds[i], addCharsToList);
+        axiosCall(PEOPLE_URL + charIds[i], displayCharMenu);
       }
     });
   } // display all characters on page
 
 
-  function addCharsToList(response, charId) {
+  function displayCharMenu(response, charId) {
     var listElement = document.createElement("li");
     listElement.innerHTML = "\n\t\t\t<a href=\"#\" class=\"charLink\">\n\t\t\t\t<img src=\"assets/images/chars/".concat(charId, ".jpg\" class=\"thumbnail\" alt=\"").concat(response.data.name, " image \"> \n\t\t\t\t<p class=\"charName\">").concat(response.data.name, "</p>\n\t\t\t</a>");
     resultsList.appendChild(listElement); // add listener to click event to load films for character,
     // provided films list has not been populated before
 
     listElement.addEventListener("click", function (_) {
-      if (listElement.children.length <= 1) addFilmsToChar(listElement, response);
+      if (listElement.children.length <= 1) displayCharProfile(listElement, response);
     });
-  } // displays all films for a single character
+  } // displays character profile with character data and all films for a single character
 
 
-  function addFilmsToChar(parentList, response) {
+  function displayCharProfile(parentList, response) {
+    // display character profile
+    titleCon.innerHTML = "".concat(response.data.name); // display films
+
     var films = response.data.films;
     var subList = document.createElement("ul");
-    var filmId = [];
+    var filmId = []; // posterCon.innerHTML = '';//~
+
     films.forEach(function (film) {
       // get film ids (method takes an array of urls as first argument)
       getIdsFromURL([film], filmId);
       var listElement = document.createElement("li"); //~movie poster alt
       // movie poster is found by id, which is the last pushed item to the filmId array
+      // posterCon.innerHTML += `
 
-      listElement.innerHTML = "\n\t\t\t\t<a href=\"#\" class=\"charLink\">\n\t\t\t\t\t<img src=\"assets/images/films/".concat(filmId[filmId.length - 1], ".jpg\" class=\"thumbnail\" alt=\"Movie poster\"> \n\t\t\t\t\t<p>").concat(film, "</p>\t\n\t\t\t\t</a>");
+      listElement.innerHTML = "\n\t\t\t\t<a href=\"#\" class=\"charLink\">\n\t\t\t\t\t<img src=\"assets/images/films/".concat(filmId[filmId.length - 1], ".jpg\" class=\"thumbnail\" alt=\"Movie poster\"> \n\t\t\t\t</a>");
       subList.appendChild(listElement); // add listener to click event to load film data
 
       listElement.addEventListener("click", function (_) {
@@ -53,8 +62,9 @@
         });
       });
     });
-    console.log(filmId);
-    parentList.appendChild(subList);
+    console.log(filmId); // parentList.appendChild(subList);
+
+    contextMenu.appendChild(subList);
   }
   /* helper methods */
   // generates axios call using url and handles response using responseMethod
