@@ -85,6 +85,8 @@ p.crawl {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: $logoWidth * 2;
     grid-column-gap: $baseMargin * 2;
+    margin: 0 auto;
+    margin-top: $baseMargin * 3;
 }
 
 #logo {
@@ -94,6 +96,7 @@ p.crawl {
 .burgerMenu {
     float: right;
     margin-top: -80px;
+    margin-right: $baseMargin * 2;
     position: relative;
     .fa {
         color: $logoYellow;
@@ -245,8 +248,8 @@ img.poster {
             display: flex;
             flex-direction: column;
             img.thumbnail {
-                width: 100px; 
-                height: 100px;
+                width: $mblThumbnail / 2; 
+                height: $mblThumbnail / 2;
             }
         }
     }
