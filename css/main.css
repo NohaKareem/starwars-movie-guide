@@ -84,8 +84,7 @@ a {
   margin: 30px; }
 
 .menuList {
-  order: 0;
-  width: 10%; }
+  order: 0; }
   .menuList #resultsList {
     display: flex;
     flex-direction: column; }
@@ -145,11 +144,9 @@ img.poster {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 2fr)) 1fr;
     text-align: center; }
-  .menuList {
-    width: 10%; }
-    .menuList #resultsList {
-      display: flex;
-      flex-direction: column; }
-      .menuList #resultsList img.thumbnail {
-        width: 100px;
-        height: 100px; } }
+  .menuList #resultsList {
+    display: flex;
+    flex-direction: column; }
+    .menuList #resultsList img.thumbnail {
+      width: 100px;
+      height: 100px; } }
