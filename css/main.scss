@@ -209,14 +209,23 @@ img.thumbnail:hover {
     order: -1;
 }
 
+.menuList #resultsList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 img.poster {
     height: 100vh;
-    // width: 50vw;
     object-fit: cover;
     border-radius: 10px;
 }
 
 @media screen and (min-width: $desktopWidth) {
+    // #charList {
+    //     order: 3;
+    // }
+
     img.thumbnail {
         width: $desktopThumbnail;
         height: $desktopThumbnail;

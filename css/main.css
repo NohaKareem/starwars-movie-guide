@@ -148,6 +148,11 @@ img.thumbnail:hover {
 #charList {
   order: -1; }
 
+.menuList #resultsList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; }
+
 img.poster {
   height: 100vh;
   object-fit: cover;
