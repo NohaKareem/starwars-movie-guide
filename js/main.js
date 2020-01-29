@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 	let resultsList = document.querySelector("#resultsList");
-	let titleCon = document.querySelector("h2.title");
+	let titleCon = document.querySelector("h3.title");
 	let crawlCon = document.querySelector("p.crawl");
 	let posterCon = document.querySelector(".posterCon");
 	let contextMenu = document.querySelector(".contextMenu");
@@ -45,6 +45,16 @@
 
 	// displays character profile with character data and all films for a single character
 	function displayCharProfile(response, charId) {
+		// hide main character menu
+		let charListCon = document.querySelector("#charList");
+		charListCon.classList.add("hidden");
+
+		// show data section
+		let dataCon = document.querySelector(".dataCon");
+		dataCon.classList.remove("hidden");
+		let posterCon = document.querySelector(".posterCon");
+		posterCon.classList.remove("hidden");
+
 		// display character profile
 		updatePoster(`chars/${charId}`, `${response.data.name} image`);
 		crawlCon.innerHTML = "";
@@ -53,6 +63,7 @@
 		// display films
 		let films = response.data.films;
 		let subList = document.createElement("ul");
+		subList.classList.add("grid");
 		let filmId = [];
 		
 		// posterCon.innerHTML = '';//~

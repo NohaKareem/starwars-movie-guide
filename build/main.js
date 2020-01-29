@@ -4,7 +4,7 @@
   "use strict";
 
   var resultsList = document.querySelector("#resultsList");
-  var titleCon = document.querySelector("h2.title");
+  var titleCon = document.querySelector("h3.title");
   var crawlCon = document.querySelector("p.crawl");
   var posterCon = document.querySelector(".posterCon");
   var contextMenu = document.querySelector(".contextMenu");
@@ -39,13 +39,22 @@
 
 
   function displayCharProfile(response, charId) {
-    // display character profile
+    // hide main character menu
+    var charListCon = document.querySelector("#charList");
+    charListCon.classList.add("hidden"); // show data section
+
+    var dataCon = document.querySelector(".dataCon");
+    dataCon.classList.remove("hidden");
+    var posterCon = document.querySelector(".posterCon");
+    posterCon.classList.remove("hidden"); // display character profile
+
     updatePoster("chars/".concat(charId), "".concat(response.data.name, " image"));
     crawlCon.innerHTML = "";
     titleCon.innerHTML = "".concat(response.data.name); // display films
 
     var films = response.data.films;
     var subList = document.createElement("ul");
+    subList.classList.add("grid");
     var filmId = []; // posterCon.innerHTML = '';//~
 
     films.forEach(function (film) {
