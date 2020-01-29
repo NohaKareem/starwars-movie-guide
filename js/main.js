@@ -5,6 +5,9 @@
 	let crawlCon = document.querySelector("p.crawl");
 	let posterCon = document.querySelector(".posterCon");
 	let contextMenu = document.querySelector(".contextMenu");
+	let burgerIcon = document.querySelector(".burgerIcon");
+	let charListCon = document.querySelector("#charList");//container~
+
 	let charIds = [];
 	const FILM_URL = 'https://swapi.co/api/films/'; 
 	const PEOPLE_URL = 'https://swapi.co/api/people/';
@@ -45,9 +48,10 @@
 
 	// displays character profile with character data and all films for a single character
 	function displayCharProfile(response, charId) {
-		// hide main character menu
-		let charListCon = document.querySelector("#charList");
-		charListCon.classList.add("hidden");
+		// hide main character menu and show it as burger menu
+		charListCon.classList.add("menuList");//~gridCon
+		charListCon.classList.add("hidden");//~gridCon
+		burgerIcon.classList.remove("hidden");
 
 		// show data section
 		let dataCon = document.querySelector(".dataCon");
@@ -74,6 +78,13 @@
 		// ~show all characters for film
 		// displayContextMenu(response, false);
 	}
+
+	// toggle burger menu
+	function toggleBurgerMenu(e) {
+		charListCon.classList.toggle("hidden");
+		burgerIcon.classList.toggle("burgerIconTransform");
+	}
+
 	
 	/* helper methods */ 
 	// generates axios call using url and handles response using responseMethod
@@ -136,4 +147,7 @@
 	}
 
 	loadChars();
+
+	// event handler registration
+	burgerIcon.addEventListener("click", toggleBurgerMenu);
 })();

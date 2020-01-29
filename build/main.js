@@ -8,6 +8,9 @@
   var crawlCon = document.querySelector("p.crawl");
   var posterCon = document.querySelector(".posterCon");
   var contextMenu = document.querySelector(".contextMenu");
+  var burgerIcon = document.querySelector(".burgerIcon");
+  var charListCon = document.querySelector("#charList"); //container~
+
   var charIds = [];
   var FILM_URL = 'https://swapi.co/api/films/';
   var PEOPLE_URL = 'https://swapi.co/api/people/'; // get character ids to be used in app (from The Force Awakens film, with id 7)
@@ -39,9 +42,12 @@
 
 
   function displayCharProfile(response, charId) {
-    // hide main character menu
-    var charListCon = document.querySelector("#charList");
-    charListCon.classList.add("hidden"); // show data section
+    // hide main character menu and show it as burger menu
+    charListCon.classList.add("menuList"); //~gridCon
+
+    charListCon.classList.add("hidden"); //~gridCon
+
+    burgerIcon.classList.remove("hidden"); // show data section
 
     var dataCon = document.querySelector(".dataCon");
     dataCon.classList.remove("hidden");
@@ -62,6 +68,12 @@
     updatePoster("films/".concat(filmId), "".concat(response.data.title, " poster"));
     crawlCon.innerHTML = "".concat(response.data.opening_crawl); // ~show all characters for film
     // displayContextMenu(response, false);
+  } // toggle burger menu
+
+
+  function toggleBurgerMenu(e) {
+    charListCon.classList.toggle("hidden");
+    burgerIcon.classList.toggle("burgerIconTransform");
   }
   /* helper methods */
   // generates axios call using url and handles response using responseMethod
@@ -118,5 +130,7 @@
     contextMenu.appendChild(subList);
   }
 
-  loadChars();
+  loadChars(); // event handler registration
+
+  burgerIcon.addEventListener("click", toggleBurgerMenu);
 })();
