@@ -222,9 +222,9 @@ img.poster {
 }
 
 @media screen and (min-width: $desktopWidth) {
-    // #charList {
-    //     order: 3;
-    // }
+    #charList {
+        order: 3;
+    }
 
     img.thumbnail {
         width: $desktopThumbnail;

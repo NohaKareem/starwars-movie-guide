@@ -159,6 +159,8 @@ img.poster {
   border-radius: 10px; }
 
 @media screen and (min-width: 850px) {
+  #charList {
+    order: 3; }
   img.thumbnail {
     width: 200px;
     height: 200px; }
