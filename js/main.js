@@ -71,7 +71,7 @@
 		updatePoster(`films/${filmId}`, `${response.data.title} poster`);
 		crawlCon.innerHTML = `${response.data.opening_crawl}`;
 
-		// show all characters for film
+		// ~show all characters for film
 		// displayContextMenu(response, false);
 	}
 	

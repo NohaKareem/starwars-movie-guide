@@ -3,10 +3,22 @@
   display: none; }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Hammersmith One', sans-serif;
   background-color: #000;
   color: white;
   font-size: 18px; }
+
+#pageTitle {
+  color: #ffe919;
+  font-size: 45px;
+  font-family: 'Audiowide', sans-serif;
+  display: inline; }
+
+header {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 400px;
+  grid-column-gap: 20px; }
 
 h2, h3 {
   font-size: 36px; }

@@ -5,16 +5,33 @@ $baseMargin: 10px;
 $baseFontSize: 18px;
 $desktopWidth: 768px;
 $mblThumbnail: 80px;
+$logoWidth: 200px;
+
+$logoYellow: #ffe919;
 
 .hidden {
     display: none;
 }
 
 body {
-	font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Hammersmith One', sans-serif;
     background-color: #000;
     color: white;
     font-size: $baseFontSize;
+}
+
+#pageTitle {
+    color: $logoYellow;
+    font-size: $baseFontSize * 2.5;
+    font-family: 'Audiowide', sans-serif;
+    display: inline;
+}
+
+header {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: $logoWidth * 2;
+    grid-column-gap: $baseMargin * 2;
 }
 
 h2, h3 {
@@ -35,7 +52,7 @@ h2, h3 {
 
 // header
 #logo {
-	width: 200px;
+	width: $logoWidth;
 }
 
 // movie/character data 

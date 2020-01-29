@@ -60,7 +60,7 @@
     console.log(response);
     titleCon.innerHTML = "".concat(response.data.title);
     updatePoster("films/".concat(filmId), "".concat(response.data.title, " poster"));
-    crawlCon.innerHTML = "".concat(response.data.opening_crawl); // show all characters for film
+    crawlCon.innerHTML = "".concat(response.data.opening_crawl); // ~show all characters for film
     // displayContextMenu(response, false);
   }
   /* helper methods */
