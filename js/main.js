@@ -60,36 +60,8 @@
 		crawlCon.innerHTML = "";
 		titleCon.innerHTML = `${response.data.name}`;
 
-		// display films
-		let films = response.data.films;
-		let subList = document.createElement("ul");
-		subList.classList.add("grid");
-		let filmId = [];
-		
-		// posterCon.innerHTML = '';//~
-		films.forEach((film) => {
-			// get film ids (method takes an array of urls as first argument)
-			getIdsFromURL([film], filmId);
-			let listElement = document.createElement("li"); //~movie poster alt
-
-			// movie poster is found by id, which is the last pushed item to the filmId array
-			// posterCon.innerHTML += `
-			var currFilmId = filmId.length - 1;
-			listElement.innerHTML = `
-				<a href="#" class="charLink">
-					<img src="assets/images/films/${filmId[currFilmId]}.jpg" class="thumbnail" alt="Movie poster"> 
-				</a>`;
-			subList.appendChild(listElement);
-
-			// add listener to click event to load film data //~
-			listElement.addEventListener("click", _ => {
-				axiosCall(FILM_URL + filmId[currFilmId], displayMovieProfile);
-			});	
-		});
-		console.log(filmId)
-		// parentList.appendChild(subList);
-		contextMenu.innerHTML = ""; // reset menu
-		contextMenu.appendChild(subList);
+		// show all films for character
+		displayContextMenu(response, true);		
 	}
 
 	// displays movie profile with movie data and all characters for a single movie
@@ -98,8 +70,10 @@
 		titleCon.innerHTML = `${response.data.title}`;
 		updatePoster(`films/${filmId}`, `${response.data.title} poster`);
 		crawlCon.innerHTML = `${response.data.opening_crawl}`;
-	}
 
+		// show all characters for film
+		// displayContextMenu(response, false);
+	}
 	
 	/* helper methods */ 
 	// generates axios call using url and handles response using responseMethod
@@ -130,6 +104,35 @@
 			let index = lastIndex ? urlComponents.length - 1 : urlComponents.length - 2;
 			dstArr.push(urlComponents[index]);
 		});
+	}
+
+	// displays a menu for all characters in a movie or movies for a character, given an axios response
+	function displayContextMenu(response, isFilm) {
+		let menuItem = isFilm ? response.data.films : response.data.characters;
+		let subList = document.createElement("ul");
+		subList.classList.add("grid");
+		let ItemId = [];
+		
+		menuItem.forEach((item) => {
+			// get ids (method takes an array of urls as first argument)
+			getIdsFromURL([item], ItemId);
+			let listElement = document.createElement("li"); //~movie poster alt
+
+			// image is found by id, which is the last pushed item to the ItemId array
+			var currItemId = ItemId.length - 1; 
+			listElement.innerHTML = `
+				<a href="#" class="charLink">
+					<img src="assets/images/${isFilm ? "films" : "chars"}/${ItemId[currItemId]}.jpg" class="thumbnail" alt="${isFilm ? "poster" : "image"}"> 
+				</a>`; 
+			subList.appendChild(listElement);
+
+			// add listener to click event to load data
+			listElement.addEventListener("click", _ => {
+				axiosCall((isFilm ? FILM_URL : PEOPLE_URL) + ItemId[currItemId], displayMovieProfile);
+			});	
+		});
+		contextMenu.innerHTML = ""; // reset menu
+		contextMenu.appendChild(subList);
 	}
 
 	loadChars();
