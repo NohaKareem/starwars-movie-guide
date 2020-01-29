@@ -1,11 +1,12 @@
 @charset "UTF-8";
-/* CSS Document */
 
 $baseMargin: 10px;
 $baseFontSize: 18px;
 $desktopWidth: 768px;
-$mblThumbnail: 80px;
 $logoWidth: 200px;
+
+$mblThumbnail: 80px;
+$mblLargeThumbnail: 120px;
 $desktopThumbnail: 200px;
 
 $logoYellow: #ffe919;
@@ -42,6 +43,13 @@ h2, h3 {
     font-family: 'Audiowide', sans-serif;
 }
 
+.menuTitle {
+    color: $logoYellow;
+    font-family: 'Audiowide', sans-serif;
+    font-size: $baseFontSize * 1.25;
+}
+
+
 h3.title {
     margin-top: $baseMargin * 2;
     margin-bottom: $baseMargin * 3;
@@ -57,17 +65,12 @@ p.crawl {
 }
 
 #container {
-   display: grid;
-   grid-template-columns: 1fr 1fr;
    text-align: center; 
-}
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
 
-#container.threeGrid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 2fr)) 1fr;
-    text-align: center; 
- }
- 
+}
 
 // header
 .logoCon {
@@ -82,10 +85,11 @@ p.crawl {
 }
 
 .burgerMenu {
-    // align-self: flex-end;
     float: right;
-    // margin-right: auto;
     position: relative;
+    .fa {
+        color: $logoYellow;
+    }
 }
 
 // movie/character data 
@@ -129,6 +133,7 @@ a {
 
 // main list turning into a toggle menu
 .menuList {
+    order: 0;
     width: 10%;
     // margin-right: auto;
 
@@ -161,8 +166,8 @@ img.thumbnail:hover {
 .charProfilePicCon {
    img {
     box-shadow: 0px 0px 20px 5px white;
-    width: $desktopWidth;
-    height: $desktopWidth;
+    width: $mblLargeThumbnail;
+    height: $mblLargeThumbnail;
    }
 }
 
@@ -202,5 +207,32 @@ img.poster {
     img.thumbnail {
         width: $desktopThumbnail;
         height: $desktopThumbnail;
+    }
+
+    #container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        text-align: center; 
+    }
+    
+    #container.threeGrid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 2fr)) 1fr;
+        text-align: center; 
+    }
+
+    // main list turning into a toggle menu
+    .menuList {
+        width: 10%;
+        // margin-right: auto;
+
+        #resultsList { //~
+            display: flex;
+            flex-direction: column;
+            img.thumbnail {
+                width: 100px; 
+                height: 100px;
+            }
+        }
     }
 }
