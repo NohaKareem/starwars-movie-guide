@@ -55,6 +55,8 @@
 		charListCon.classList.add("menuList");//~gridCon
 		charListCon.classList.add("hidden");//~gridCon
 		burgerIcon.classList.remove("hidden");
+		container.classList.remove("threeGrid");
+		resetMovieDisplay();
 
 		// show data section
 		let dataCon = document.querySelector(".dataCon");
@@ -66,7 +68,6 @@
 		updatePoster(`chars/${charId}`, `${response.data.name} image`, false);
 		crawlCon.innerHTML = "";
 		charName.innerHTML = `${response.data.name}`;
-		// titleCon.innerHTML = `${response.data.name}`;
 
 		// show all films for character
 		displayContextMenu(response, true);		
@@ -74,13 +75,9 @@
 
 	// displays movie profile with movie data and all characters for a single movie
 	function displayMovieProfile(response, filmId) {
-		console.log(response);
 		titleCon.innerHTML = `${response.data.title}`;
 		updatePoster(`films/${filmId}`, `${response.data.title} poster`, true);
 		crawlCon.innerHTML = `${response.data.opening_crawl}`;
-
-		// ~show all characters for film
-		// displayContextMenu(response, false);
 	}
 
 	// toggle burger menu
@@ -154,6 +151,12 @@
 		});
 		contextMenu.innerHTML = ""; // reset menu
 		contextMenu.appendChild(subList);
+	}
+
+	function resetMovieDisplay() {
+		titleCon.innerHTML = "";
+		posterCon.innerHTML = "";
+		crawlCon.innerHTML = "";
 	}
 
 	loadChars();
