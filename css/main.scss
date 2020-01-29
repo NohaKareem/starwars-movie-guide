@@ -6,6 +6,7 @@ $baseFontSize: 18px;
 $desktopWidth: 768px;
 $mblThumbnail: 80px;
 $logoWidth: 200px;
+$desktopThumbnail: 200px;
 
 $logoYellow: #ffe919;
 
@@ -42,6 +43,7 @@ h2, h3 {
 }
 
 h3.title {
+    margin-top: $baseMargin * 2;
     margin-bottom: $baseMargin * 3;
 }
 
@@ -90,6 +92,10 @@ p.crawl {
 .dataCon {
     color: white;
     padding-left: $baseMargin * 2;
+
+    .charName {
+        margin: $baseMargin * 2;
+    }
 }
 
 a {
@@ -124,7 +130,7 @@ a {
 // main list turning into a toggle menu
 .menuList {
     width: 10%;
-    margin-right: auto;
+    // margin-right: auto;
 
     #resultsList { //~
         display: flex;
@@ -142,11 +148,22 @@ a {
 
 // images
 img.thumbnail {
-    box-shadow: 0px 0px 20px 5px white;
     width: $mblThumbnail; 
     height: $mblThumbnail;
     border-radius: 100%;
     object-fit: cover;
+}
+
+img.thumbnail:hover {
+    box-shadow: 0px 0px 20px 5px white;
+}
+
+.charProfilePicCon {
+   img {
+    box-shadow: 0px 0px 20px 5px white;
+    width: $desktopWidth;
+    height: $desktopWidth;
+   }
 }
 
 .contextMenu {
@@ -165,6 +182,9 @@ img.thumbnail {
         height: $mblThumbnail;
         margin: $baseMargin / 2;
     }
+    img.thumbnail:hover {
+        box-shadow: 0px 0px 20px 5px white;
+    }
 }
 
 img.poster {
@@ -180,7 +200,7 @@ img.poster {
 
 @media screen and (min-width: $desktopWidth) {
     img.thumbnail {
-        width: 200px;
-        height: 200px;
+        width: $desktopThumbnail;
+        height: $desktopThumbnail;
     }
 }

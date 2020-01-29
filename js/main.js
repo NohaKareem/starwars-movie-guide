@@ -4,6 +4,8 @@
 	let titleCon = document.querySelector("h3.title");
 	let crawlCon = document.querySelector("p.crawl");
 	let posterCon = document.querySelector(".posterCon");
+	let charProfilePicCon = document.querySelector(".charProfilePicCon");
+	let charName = document.querySelector(".charName");
 	let contextMenu = document.querySelector(".contextMenu");
 	let burgerIcon = document.querySelector(".burgerIcon");
 	let container = document.querySelector("#container");
@@ -61,9 +63,10 @@
 		posterCon.classList.remove("hidden");
 
 		// display character profile
-		updatePoster(`chars/${charId}`, `${response.data.name} image`);
+		updatePoster(`chars/${charId}`, `${response.data.name} image`, false);
 		crawlCon.innerHTML = "";
-		titleCon.innerHTML = `${response.data.name}`;
+		charName.innerHTML = `${response.data.name}`;
+		// titleCon.innerHTML = `${response.data.name}`;
 
 		// show all films for character
 		displayContextMenu(response, true);		
@@ -73,7 +76,7 @@
 	function displayMovieProfile(response, filmId) {
 		console.log(response);
 		titleCon.innerHTML = `${response.data.title}`;
-		updatePoster(`films/${filmId}`, `${response.data.title} poster`);
+		updatePoster(`films/${filmId}`, `${response.data.title} poster`, true);
 		crawlCon.innerHTML = `${response.data.opening_crawl}`;
 
 		// ~show all characters for film
@@ -102,9 +105,14 @@
 		});
 	}
 
-	// updates posterCon with new image given image source, imgSrc and img alt, imgAlt
-	function updatePoster(imgSrc, imgAlt) {
-		posterCon.innerHTML = `<img src="assets/images/${imgSrc}.jpg" alt="${imgAlt}" class="poster">`
+	// updates posterCon with new image given image source, imgSrc and img alt, imgAlt.
+	//  Updates as movie poster if isPoster is true, else updates as character profile pic
+	function updatePoster(imgSrc, imgAlt, isPoster) {
+		if (isPoster)
+			posterCon.innerHTML = `<img src="assets/images/${imgSrc}.jpg" alt="${imgAlt}" class="poster">`;
+		else {
+			charProfilePicCon.innerHTML = `<img src="assets/images/${imgSrc}.jpg" alt="${imgAlt}" class="thumbnail charProfilePic">`;
+		}
 	}
 
 	// gets ids from a list of urls and stores them the detination array, dstArr
