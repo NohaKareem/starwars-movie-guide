@@ -145,8 +145,8 @@ img.thumbnail:hover {
 .contextMenu img.thumbnail:hover {
   box-shadow: 0px 0px 20px 5px white; }
 
-.charList {
-  order: 0; }
+#charList {
+  order: -1; }
 
 img.poster {
   height: 100vh;
