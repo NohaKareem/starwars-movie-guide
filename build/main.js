@@ -9,6 +9,7 @@
   var posterCon = document.querySelector(".posterCon");
   var contextMenu = document.querySelector(".contextMenu");
   var burgerIcon = document.querySelector(".burgerIcon");
+  var container = document.querySelector("#container");
   var charListCon = document.querySelector("#charList"); //container~
 
   var charIds = [];
@@ -73,7 +74,8 @@
 
   function toggleBurgerMenu(e) {
     charListCon.classList.toggle("hidden");
-    burgerIcon.classList.toggle("burgerIconTransform");
+    container.classList.toggle("threeGrid");
+    burgerIcon.classList.toggle("burgerIconTransform"); //~
   }
   /* helper methods */
   // generates axios call using url and handles response using responseMethod

@@ -6,6 +6,7 @@
 	let posterCon = document.querySelector(".posterCon");
 	let contextMenu = document.querySelector(".contextMenu");
 	let burgerIcon = document.querySelector(".burgerIcon");
+	let container = document.querySelector("#container");
 	let charListCon = document.querySelector("#charList");//container~
 
 	let charIds = [];
@@ -82,7 +83,8 @@
 	// toggle burger menu
 	function toggleBurgerMenu(e) {
 		charListCon.classList.toggle("hidden");
-		burgerIcon.classList.toggle("burgerIconTransform");
+		container.classList.toggle("threeGrid");
+		burgerIcon.classList.toggle("burgerIconTransform");//~
 	}
 
 	
