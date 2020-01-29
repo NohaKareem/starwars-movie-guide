@@ -13,8 +13,7 @@
   var contextMenuTitle = document.querySelector(".contextMenuTitle");
   var burgerIcon = document.querySelector(".burgerIcon");
   var container = document.querySelector("#container");
-  var charListCon = document.querySelector("#charList"); //container~
-
+  var charListCon = document.querySelector("#charList");
   var charIds = [];
   var movieTitles = [];
   var FILM_URL = 'https://swapi.co/api/films/';
@@ -36,7 +35,7 @@
 
   function displayCharMenu(response, charId) {
     var listElement = document.createElement("li");
-    listElement.innerHTML = "\n\t\t\t<a href=\"#\" class=\"charLink\">\n\t\t\t\t<img src=\"assets/images/chars/".concat(charId, ".jpg\" class=\"thumbnail\" alt=\"").concat(response.data.name, " image \"> \n\t\t\t\t<p class=\"charName\">").concat(response.data.name, "</p>\n\t\t\t</a>");
+    listElement.innerHTML = "\n\t\t\t<div class=\"charLink\">\n\t\t\t\t<a href=\"#\">\n\t\t\t\t\t<img src=\"assets/images/chars/".concat(charId, ".jpg\" class=\"thumbnail\" alt=\"").concat(response.data.name, " image \"> \n\t\t\t\t\t<p class=\"charName\">").concat(response.data.name, "</p>\n\t\t\t\t</a>\n\t\t\t</div>");
     resultsList.appendChild(listElement); // add listener to click event to load films for character,
     // provided films list has not been populated before
 
@@ -138,8 +137,7 @@
     menuItem.forEach(function (item) {
       // get ids (method takes an array of urls as first argument)
       getIdsFromURL([item], ItemId);
-      var listElement = document.createElement("li"); //~movie poster alt
-      // image is found by id, which is the last pushed item to the ItemId array
+      var listElement = document.createElement("li"); // image is found by id, which is the last pushed item to the ItemId array
 
       var currItemId = ItemId.length - 1; // display context menu, with movie titles (if showing character profile)
       // if (isFilm) {

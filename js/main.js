@@ -10,7 +10,7 @@
 	let contextMenuTitle = document.querySelector(".contextMenuTitle");
 	let burgerIcon = document.querySelector(".burgerIcon");
 	let container = document.querySelector("#container");
-	let charListCon = document.querySelector("#charList");//container~
+	let charListCon = document.querySelector("#charList");
 
 	let charIds = [];
 	var movieTitles = [];
@@ -37,10 +37,12 @@
 	function displayCharMenu(response, charId) {
 		let listElement = document.createElement("li");
 		listElement.innerHTML = `
-			<a href="#" class="charLink">
-				<img src="assets/images/chars/${charId}.jpg" class="thumbnail" alt="${response.data.name} image "> 
-				<p class="charName">${response.data.name}</p>
-			</a>`;
+			<div class="charLink">
+				<a href="#">
+					<img src="assets/images/chars/${charId}.jpg" class="thumbnail" alt="${response.data.name} image "> 
+					<p class="charName">${response.data.name}</p>
+				</a>
+			</div>`;
 		resultsList.appendChild(listElement);	
 
 		// add listener to click event to load films for character,
@@ -148,7 +150,7 @@
 		menuItem.forEach((item) => {
 			// get ids (method takes an array of urls as first argument)
 			getIdsFromURL([item], ItemId);
-			let listElement = document.createElement("li"); //~movie poster alt
+			let listElement = document.createElement("li"); 
 
 			// image is found by id, which is the last pushed item to the ItemId array
 			var currItemId = ItemId.length - 1; 
