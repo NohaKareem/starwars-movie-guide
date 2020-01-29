@@ -47,12 +47,11 @@
 
   function displayCharProfile(response, charId) {
     // hide main character menu and show it as burger menu
-    charListCon.classList.add("menuList"); //~gridCon
-
-    charListCon.classList.add("hidden"); //~gridCon
-
+    charListCon.classList.add("menuList");
+    charListCon.classList.add("hidden");
     burgerIcon.classList.remove("hidden");
     container.classList.remove("threeGrid");
+    container.classList.add("twoGrid");
     resetMovieDisplay(); // show data section
 
     var dataCon = document.querySelector(".dataCon");

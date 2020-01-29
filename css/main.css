@@ -148,7 +148,9 @@ img.poster {
   img.thumbnail {
     width: 200px;
     height: 200px; }
-  #container {
+  #container.twoGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 2fr));
     text-align: center; }
   #container.threeGrid {
     display: grid;
